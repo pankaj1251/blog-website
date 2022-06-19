@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  },
+  "name": "blog-project",
+  "version": "1.0.0",
+  "description": "Blog website using Node JS",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankaj1251/blog-website.git"
+  },
+  "author": "Pankaj Pandit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pankaj1251/blog-website/issues"
+  },
+  "homepage": "https://github.com/pankaj1251/blog-website#readme"
+}
