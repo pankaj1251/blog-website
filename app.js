@@ -11,6 +11,8 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
+const _ = require("lodash");
+
 const posts = []; //to store all the compose objects;
 
 const Homecontent = `Lacus vel facilisis volutpat est velit egestas dui id ornare. Semper auctor neque vitae tempus quam. Sit amet cursus sit amet dictum sit
@@ -19,7 +21,11 @@ const Homecontent = `Lacus vel facilisis volutpat est velit egestas dui id ornar
     ultricies. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ultrices vitae auctor eu augue ut lectus arcu bibendum at. 
     Odio euismod lacinia at quis risus sed vulputate odio ut. Cursus mattis molestie a iaculis at erat pellentesque adipiscing.`;
 
-const aboutContent = `Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa tincidunt dui.`;
+const aboutContent = `Hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Dictumst vestibulum rhoncus est pellentesque elit
+ ullamcorper. Non diam phasellus vestibulum lorem sed. Platea dictumst quisque sagittis purus sit. Egestas sed sed risus pretium quam 
+ vulputate dignissim suspendisse. Mauris in aliquam sem fringilla. Semper risus in hendrerit gravida rutrum quisque non tellus orci. Amet 
+ massa vitae tortor condimentum lacinia quis vel eros. Enim ut tellus elementum sagittis vitae. Mauris ultrices eros in cursus turpis massa 
+ tincidunt dui.`;
 
 const contactContent = `Scelerisque eleifend donec pretium vulputate sapien. Rhoncus urna neque viverra justo nec ultrices. Arcu dui vivamus 
 arcu felis bibendum. Consectetur adipiscing elit duis tristique. Risus viverra adipiscing at in tellus integer feugiat. Sapien nec sagittis 
@@ -52,6 +58,22 @@ app.post("/compose", (req, res) => {
   posts.push(post);
 
   res.redirect("/"); //redirect to root route
+});
+
+// to convert postName(which user types in the url ) and  storedTitle strings in same format we use lodash.
+app.get("/posts/:postName", (req, res) => {
+  let requestedTitle = _.lowerCase(req.params.postName);
+
+  posts.forEach((post) => {
+    let storedtitle = _.lowerCase(post.title);
+    if (requestedTitle === storedtitle) {
+      res.render("post", {
+        //as we are inside this for loop, we still have access to the post object
+        title: post.title,
+        content: post.content,
+      });
+    }
+  });
 });
 
 app.listen(port, function () {

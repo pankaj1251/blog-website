@@ -2,10 +2,11 @@
 <div class="container">
   <h1>Home</h1>
   <p><%= Homecontent_ %></p>
+  
   <% posts.forEach((post)=>{ %>
-  <!-- <% console.log(post.title); %>  -->
   <h1><%= post.title %></h1>
-  <p><%= post.content %></p>
+  <p><%= post.content.substring(0, 99) + "..." %> <a href="/posts/<%= post.title%>">read more</a></p>
+
 
   <% }) %>
 </div>
